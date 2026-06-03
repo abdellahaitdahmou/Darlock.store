@@ -32,7 +32,7 @@ export async function POST(request: NextRequest) {
     const orderPayload: Omit<Order, "id" | "created_at"> = {
       customer_name: data.customer_name,
       phone: data.phone,
-      city: data.city,
+      city: data.city ?? "",
       address: data.address,
       product_name: data.product_name,
       quantity: data.quantity,
