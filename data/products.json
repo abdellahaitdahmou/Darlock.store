@@ -1,0 +1,255 @@
+[
+  {
+    "id": "wd03",
+    "name": "WD03 Smart Lock",
+    "slug": "wd03",
+    "category": "Tuya WiFi & Fingerprint",
+    "originalPrice": 299,
+    "discountedPrice": 199,
+    "savingsPercent": 33,
+    "description": "The ultimate smart lock featuring Tuya WiFi connectivity, high-speed fingerprint recognition, and seamless remote control for modern homes and Airbnb rentals.",
+    "features": [
+      "Tuya App Control",
+      "Fingerprint Scanner",
+      "WiFi Connectivity",
+      "Passcode & RFID"
+    ],
+    "rating": 4.9,
+    "reviewCount": 284,
+    "badge": "Best Seller",
+    "popular": true,
+    "imageUrl": "https://wdlinkma.com/wp-content/uploads/2026/02/wd03-1.webp",
+    "images": []
+  },
+  {
+    "id": "wd04",
+    "name": "WD04 Slim Lock",
+    "slug": "wd04",
+    "category": "Slim Profile Lock",
+    "originalPrice": 249,
+    "discountedPrice": 169,
+    "savingsPercent": 32,
+    "description": "A beautifully slim profile smart lock designed specifically for modern doors. Offers multiple biometric ways to unlock without ruining your door aesthetics.",
+    "features": [
+      "Slim Aluminum Body",
+      "Biometric Touch",
+      "Bluetooth Enabled",
+      "Pin Code Entry"
+    ],
+    "rating": 4.6,
+    "reviewCount": 112,
+    "badge": "Slim Design",
+    "popular": false,
+    "imageUrl": "https://wdlinkma.com/wp-content/uploads/2024/05/WD2.webp"
+  },
+  {
+    "id": "wd07p",
+    "name": "WD07P Essential",
+    "slug": "wd07p",
+    "category": "Fingerprint & App",
+    "originalPrice": 229,
+    "discountedPrice": 159,
+    "savingsPercent": 30,
+    "description": "Reliable and secure. The WD07P offers advanced fingerprint sensing combined with an intuitive mobile application for monitoring access.",
+    "features": [
+      "Advanced Fingerprint",
+      "App Monitoring",
+      "Emergency Key",
+      "Weather Resistant"
+    ],
+    "rating": 4.7,
+    "reviewCount": 198,
+    "badge": "Value",
+    "popular": false,
+    "imageUrl": "https://wdlinkma.com/wp-content/uploads/2025/03/wd07pb-1.webp"
+  },
+  {
+    "id": "wd07pb",
+    "name": "WD07PB",
+    "slug": "wd07pb",
+    "category": "Fingerprint & Keypad",
+    "originalPrice": 249,
+    "discountedPrice": 179,
+    "savingsPercent": 28,
+    "description": "A robust and stylish biometric door lock designed for convenience and security. Enjoy keyless entry via advanced fingerprint sensing and secure PIN codes.",
+    "features": [
+      "Biometric Access",
+      "Anti-peep Keypad",
+      "Temporary Guest Codes",
+      "Mechanical Key Backup"
+    ],
+    "rating": 4.8,
+    "reviewCount": 156,
+    "badge": "Popular",
+    "popular": true,
+    "imageUrl": "https://wdlinkma.com/wp-content/uploads/2025/03/wd07pb-1.webp"
+  },
+  {
+    "id": "wd1",
+    "name": "WD1 Security Lock",
+    "slug": "wd1",
+    "category": "Bluetooth & RFID",
+    "originalPrice": 199,
+    "discountedPrice": 159,
+    "savingsPercent": 20,
+    "description": "Streamlined security with Bluetooth integration. Manage access logs, grant temporary e-keys, and unlock with encrypted RFID cards or your smartphone.",
+    "features": [
+      "Bluetooth Unlock",
+      "RFID Smart Cards",
+      "Access Logs",
+      "Auto-lock Function"
+    ],
+    "rating": 4.7,
+    "reviewCount": 89,
+    "badge": "Classic",
+    "popular": false,
+    "imageUrl": "https://wdlinkma.com/wp-content/uploads/2024/05/WD1-2.webp"
+  },
+  {
+    "id": "wd10p",
+    "name": "WD10P Vision",
+    "slug": "wd10p",
+    "category": "Camera Integration",
+    "originalPrice": 349,
+    "discountedPrice": 259,
+    "savingsPercent": 25,
+    "description": "See who's at the door before unlocking. The WD10P includes an integrated camera bell, sending snapshots directly to your phone.",
+    "features": [
+      "Integrated Camera",
+      "Video Doorbell",
+      "Fingerprint Auth",
+      "Remote Unlock"
+    ],
+    "rating": 4.8,
+    "reviewCount": 204,
+    "badge": "Camera Included",
+    "popular": true,
+    "imageUrl": "https://wdlinkma.com/wp-content/uploads/2024/06/WD20.webp"
+  },
+  {
+    "id": "wd12",
+    "name": "WD12 Compact",
+    "slug": "wd12",
+    "category": "Compact Security",
+    "originalPrice": 179,
+    "discountedPrice": 129,
+    "savingsPercent": 28,
+    "description": "Compact, efficient, and extremely secure. The WD12 fits on almost any indoor door, perfect for offices or bedrooms needing extra privacy.",
+    "features": [
+      "Compact Design",
+      "RFID & Pin",
+      "Easy Retrofit",
+      "Indoor Privacy"
+    ],
+    "rating": 4.5,
+    "reviewCount": 76,
+    "badge": "Compact",
+    "popular": false,
+    "imageUrl": "https://wdlinkma.com/wp-content/uploads/2024/05/WD1-2.webp"
+  },
+  {
+    "id": "wd20p",
+    "name": "WD20P 3D Face",
+    "slug": "wd20p",
+    "category": "Facial Recognition",
+    "originalPrice": 399,
+    "discountedPrice": 299,
+    "savingsPercent": 25,
+    "description": "State-of-the-art 3D facial recognition technology. Unlock your door hands-free, night or day, with unparalleled biometric accuracy and speed.",
+    "features": [
+      "3D Face Unlock",
+      "Infrared Night Vision",
+      "Built-in Screen",
+      "App Notifications"
+    ],
+    "rating": 5,
+    "reviewCount": 312,
+    "badge": "Premium",
+    "popular": true,
+    "imageUrl": "https://wdlinkma.com/wp-content/uploads/2026/05/wd20p3d-1.webp"
+  },
+  {
+    "id": "wd21p",
+    "name": "WD21P Pro",
+    "slug": "wd21p",
+    "category": "Advanced Biometrics",
+    "originalPrice": 349,
+    "discountedPrice": 249,
+    "savingsPercent": 28,
+    "description": "The professional's choice for secure access control. Featuring enhanced biometric sensors, durable alloy construction, and multi-factor authentication modes.",
+    "features": [
+      "Multi-factor Auth",
+      "Durable Alloy Body",
+      "Real-time Alerts",
+      "Long Battery Life"
+    ],
+    "rating": 4.9,
+    "reviewCount": 145,
+    "badge": "Pro Choice",
+    "popular": false,
+    "imageUrl": "https://wdlinkma.com/wp-content/uploads/2025/09/wd21p.webp"
+  },
+  {
+    "id": "wd24",
+    "name": "WD24 Max",
+    "slug": "wd24",
+    "category": "Heavy Duty",
+    "originalPrice": 359,
+    "discountedPrice": 269,
+    "savingsPercent": 25,
+    "description": "Heavy duty smart lock for maximum physical and digital security. Built from reinforced materials for extreme weather and impact resistance.",
+    "features": [
+      "Heavy Duty Build",
+      "Weatherproof IP65",
+      "Reinforced Core",
+      "Multiple Access Modes"
+    ],
+    "rating": 4.8,
+    "reviewCount": 133,
+    "badge": "Heavy Duty",
+    "popular": false,
+    "imageUrl": "https://wdlinkma.com/wp-content/uploads/2024/04/WD7-3-WDLink.webp"
+  },
+  {
+    "id": "wd2p",
+    "name": "WD2P Plus",
+    "slug": "wd2p",
+    "category": "WiFi Connected",
+    "originalPrice": 279,
+    "discountedPrice": 199,
+    "savingsPercent": 28,
+    "description": "A well-rounded WiFi connected lock featuring a sleek glass touch panel, ergonomic handle, and instantaneous biometric unlocking.",
+    "features": [
+      "Glass Touch Panel",
+      "Ergonomic Handle",
+      "WiFi Native",
+      "Voice Assistant Sync"
+    ],
+    "rating": 4.7,
+    "reviewCount": 188,
+    "badge": "Top Rated",
+    "popular": true,
+    "imageUrl": "https://wdlinkma.com/wp-content/uploads/2024/05/WD2P.webp"
+  },
+  {
+    "id": "wd3",
+    "name": "WD3 Smart Hub",
+    "slug": "wd3",
+    "category": "App Controlled",
+    "originalPrice": 199,
+    "discountedPrice": 149,
+    "savingsPercent": 25,
+    "description": "An elegant, app-centric smart lock that simplifies your life. Easily manage user permissions, monitor door status, and enjoy hassle-free keyless entry.",
+    "features": [
+      "Smartphone App Control",
+      "Sleek Modern Design",
+      "Easy Installation",
+      "Shareable Digital Keys"
+    ],
+    "rating": 4.6,
+    "reviewCount": 201,
+    "badge": "New",
+    "popular": false,
+    "imageUrl": "https://wdlinkma.com/wp-content/uploads/2024/05/WD3-2.webp"
+  }
+]
