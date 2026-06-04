@@ -42,10 +42,10 @@ export default function AirbnbSection() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           
           {/* LEFT: Text Copy & Benefits cards */}
-          <div className="lg:col-span-7 flex flex-col space-y-6 text-left">
+          <div className="lg:col-span-7 flex flex-col space-y-6 text-center lg:text-left items-center lg:items-start">
             
-            <div className="space-y-3">
-              <span className="px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider text-emerald-600 border border-emerald-200 bg-emerald-50 w-fit block shadow-sm">
+            <div className="space-y-3 flex flex-col items-center lg:items-start">
+              <span className="px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider text-emerald-600 border border-emerald-200 bg-emerald-50 w-fit block shadow-sm mx-auto lg:mx-0">
                 Vacation Rentals & Airbnb Hosts
               </span>
               
@@ -53,18 +53,18 @@ export default function AirbnbSection() {
                 Perfect for Airbnb Hosts
               </h2>
               
-              <p className="text-slate-600 text-sm leading-relaxed max-w-lg font-medium">
+              <p className="text-slate-600 text-sm leading-relaxed max-w-lg font-medium mx-auto lg:mx-0">
                 Automate your property access completely. Generate unique check-in PIN codes that expire on checkout. Zero key handovers. 100% automated convenience.
               </p>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full">
               {airbnbBenefits.map((item) => (
                 <div
                   key={item.title}
-                  className="rounded-2xl border border-slate-200 bg-white p-4 space-y-2 hover:border-slate-300 shadow-sm hover:shadow-md transition-all"
+                  className="rounded-2xl border border-slate-200 bg-white p-4 space-y-2 hover:border-slate-300 shadow-sm hover:shadow-md transition-all flex flex-col items-center text-center sm:items-start sm:text-left"
                 >
-                  <div className="w-8 h-8 rounded-lg flex items-center justify-center border border-emerald-100 bg-emerald-50 text-emerald-600">
+                  <div className="w-8 h-8 rounded-lg flex items-center justify-center border border-emerald-100 bg-emerald-50 text-emerald-600 mx-auto sm:mx-0">
                     <item.icon className="w-4 h-4" />
                   </div>
                   <h3 className="text-xs font-black text-slate-900">{item.title}</h3>

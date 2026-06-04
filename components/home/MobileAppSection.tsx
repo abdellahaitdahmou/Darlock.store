@@ -148,7 +148,7 @@ export default function MobileAppSection() {
               {appFeatures.map((feat) => (
                 <div
                   key={feat.title}
-                  className="rounded-2xl border border-slate-200 bg-white p-4 space-y-2 shadow-sm hover:shadow-md hover:border-slate-300 transition-all"
+                  className="w-full max-w-[280px] rounded-2xl border border-slate-200 bg-white p-4 space-y-2 shadow-sm hover:shadow-md hover:border-slate-300 transition-all mx-auto sm:mx-0"
                 >
                   <div className="w-8 h-8 rounded-lg flex items-center justify-center border border-blue-100 bg-blue-50 text-blue-600">
                     <feat.icon className="w-4 h-4" />
