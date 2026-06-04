@@ -28,12 +28,18 @@ function LanguageSwitcher() {
   }, []);
 
   const changeLanguage = (lang: string) => {
-    const date = new Date();
-    date.setTime(date.getTime() + (365*24*60*60*1000)); // 1 year expiry
-    const expires = "; expires=" + date.toUTCString();
+    if (lang === "fr") {
+      // Delete translate cookies completely to turn off translation and revert to native French
+      document.cookie = "googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+      document.cookie = "googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=" + window.location.hostname;
+    } else {
+      const date = new Date();
+      date.setTime(date.getTime() + (365*24*60*60*1000)); // 1 year expiry
+      const expires = "; expires=" + date.toUTCString();
 
-    document.cookie = "googtrans=/fr/" + lang + "; path=/" + expires;
-    document.cookie = "googtrans=/fr/" + lang + "; path=/; domain=" + window.location.hostname + expires;
+      document.cookie = "googtrans=/fr/ar; path=/" + expires;
+      document.cookie = "googtrans=/fr/ar; path=/; domain=" + window.location.hostname + expires;
+    }
 
     window.location.reload();
   };
