@@ -24,7 +24,7 @@ export default async function HomePage() {
       </div>
       
       {/* Centered Content Stack */}
-      <div className="w-full pt-6 pb-12 flex flex-col">
+      <div className="w-full pt-3 md:pt-6 pb-12 flex flex-col">
         <Navbar />
         
         <main className="flex flex-col w-full">

@@ -20,7 +20,7 @@ export default function Navbar() {
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
-        className="relative w-full z-40 py-4"
+        className="relative w-full z-40 py-2 md:py-4"
       >
         <div className="w-full max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16 bg-white/80 border border-slate-200/60 rounded-2xl px-6 backdrop-blur-md shadow-sm">

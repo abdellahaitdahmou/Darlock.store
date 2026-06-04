@@ -10,7 +10,7 @@ export default function HeroSection() {
   const [videoOpen, setVideoOpen] = useState(false);
 
   return (
-    <section id="hero" className="relative w-full overflow-hidden py-12 md:py-20 flex items-center min-h-[90vh]">
+    <section id="hero" className="relative w-full overflow-hidden pt-2 pb-12 md:py-20 flex items-center min-h-[90vh]">
       {/* Background spotlights */}
       <div className="absolute top-1/4 right-0 w-[400px] h-[400px] rounded-full blur-[140px] bg-blue-500/10 pointer-events-none" />
       <div className="absolute bottom-1/4 left-1/4 w-[300px] h-[300px] rounded-full blur-[120px] bg-purple-500/5 pointer-events-none" />
