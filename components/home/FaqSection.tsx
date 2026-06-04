@@ -38,11 +38,11 @@ export default function FaqSection() {
     <section className="w-full py-12 md:py-20 relative overflow-hidden">
       <div className="w-full max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="mb-8 text-left space-y-2">
+        <div className="mb-8 text-center md:text-left space-y-2">
           <h2 className="text-2xl font-black tracking-tight text-slate-900">
             Frequently Asked Questions
           </h2>
-          <p className="text-slate-500 text-xs font-semibold max-w-sm leading-normal">
+          <p className="text-slate-500 text-xs font-semibold max-w-sm leading-normal mx-auto md:mx-0">
             Find answers to common questions about installation, battery warranty, and Airbnb rental compatibility.
           </p>
         </div>

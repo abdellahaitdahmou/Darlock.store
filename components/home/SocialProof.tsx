@@ -35,11 +35,11 @@ export default function SocialProof() {
     <section className="w-full py-8 relative overflow-hidden">
       <div className="w-full">
         {/* Section Header */}
-        <div className="mb-8 text-left space-y-2">
+        <div className="mb-8 text-center md:text-left space-y-2">
           <h2 className="text-2xl font-black tracking-tight text-slate-900">
             Thousands of Happy Customers
           </h2>
-          <p className="text-slate-500 text-xs font-semibold max-w-sm leading-normal">
+          <p className="text-slate-500 text-xs font-semibold max-w-sm leading-normal mx-auto md:mx-0">
             Read stories from home property owners, real estate developers, and Airbnb vacation hosts who secured their entrance doors.
           </p>
         </div>

@@ -23,7 +23,7 @@ export default function TrustSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: i * 0.08 }}
-              className="flex items-center gap-3.5 group p-2 rounded-xl"
+              className="flex flex-col items-center text-center md:flex-row md:items-center md:text-left gap-3.5 group p-2 rounded-xl"
             >
               <div className="w-10 h-10 rounded-xl flex items-center justify-center border border-slate-200 bg-slate-50 text-slate-500 group-hover:text-blue-600 group-hover:border-blue-200 group-hover:bg-blue-50 transition-all duration-300">
                 <item.icon className="w-5 h-5" />

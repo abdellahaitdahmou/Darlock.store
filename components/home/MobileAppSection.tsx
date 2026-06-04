@@ -132,14 +132,14 @@ export default function MobileAppSection() {
           {/* RIGHT: App features list */}
           <div className="lg:col-span-7 flex flex-col space-y-6 order-1 lg:order-2">
             
-            <div className="space-y-3 text-left">
-              <span className="px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider text-blue-600 border border-blue-200 bg-blue-50 w-fit block shadow-sm">
+            <div className="space-y-3 text-center lg:text-left">
+              <span className="px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider text-blue-600 border border-blue-200 bg-blue-50 w-fit block shadow-sm mx-auto lg:mx-0">
                 Smart Companion App
               </span>
               <h2 className="text-3xl font-black text-slate-900 tracking-tight">
                 Complete Control In Your Palm
               </h2>
-              <p className="text-slate-600 text-sm leading-relaxed max-w-lg font-medium">
+              <p className="text-slate-600 text-sm leading-relaxed max-w-lg font-medium mx-auto lg:mx-0">
                 Our application integrates military-grade digital tokens with your lock, giving you complete access authority without any physical keychains.
               </p>
             </div>

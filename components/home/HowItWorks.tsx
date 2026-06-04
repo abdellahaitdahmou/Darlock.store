@@ -61,10 +61,10 @@ export default function HowItWorks() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: i * 0.1 }}
-              className="relative z-10 flex flex-col group space-y-4"
+              className="relative z-10 flex flex-col items-center text-center md:items-start md:text-left group space-y-4"
             >
               {/* Stepper Node Icon Container */}
-              <div className="flex items-center gap-4">
+              <div className="flex justify-center md:justify-start items-center gap-4">
                 <div className="w-14 h-14 rounded-2xl flex items-center justify-center border border-slate-200 bg-white text-slate-500 group-hover:text-blue-600 group-hover:border-blue-200 group-hover:bg-blue-50 transition-all duration-300 shadow-sm relative">
                   <step.icon className="w-6 h-6" />
                   

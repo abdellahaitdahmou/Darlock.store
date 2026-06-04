@@ -96,11 +96,10 @@ export default function BenefitsSection() {
       <div className="w-full max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Header containing title and toggle controls */}
-        <div className="flex items-center justify-between mb-8">
+        <div className="flex flex-col md:flex-row items-center md:items-center justify-between gap-4 mb-8 text-center md:text-left">
           <h2 className="text-2xl font-black tracking-tight text-slate-900">
             Product Benefits
           </h2>
-          
           {/* Mock controls */}
           <div className="flex gap-2">
             <button className="p-2.5 rounded-lg border border-slate-200 bg-white text-slate-500 hover:text-slate-900 hover:border-slate-300 hover:bg-slate-50 transition-colors cursor-pointer shadow-sm">

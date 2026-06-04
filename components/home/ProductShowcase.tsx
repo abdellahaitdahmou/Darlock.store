@@ -10,11 +10,11 @@ export default function ProductShowcase({ products }: { products: Product[] }) {
     <section id="products" className="relative w-full py-12 md:py-20">
       <div className="w-full max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="mb-12 text-left space-y-2">
+        <div className="mb-12 text-center md:text-left space-y-2">
           <h2 className="text-3xl font-black tracking-tight text-slate-900">
             Our Smart Lock Collection
           </h2>
-          <p className="text-slate-500 text-sm font-medium max-w-md leading-relaxed">
+          <p className="text-slate-500 text-sm font-medium max-w-md leading-relaxed mx-auto md:mx-0">
             Discover the perfect security solution for your home or Airbnb property. Featuring top-tier biometric and WiFi-enabled models.
           </p>
         </div>
