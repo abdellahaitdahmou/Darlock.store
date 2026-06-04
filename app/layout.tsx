@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import WhatsAppButton from "@/components/ui/WhatsAppButton";
+import Script from "next/script";
 
 export const metadata: Metadata = {
   title: "Serrure Intelligente Maroc | SmartLock Store Casablanca",
@@ -57,7 +58,9 @@ export default function RootLayout({
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         
         {/* Synchronous script to set LTR/RTL direction before paint to prevent layout flashes */}
-        <script
+        <Script
+          id="rtl-toggle"
+          strategy="beforeInteractive"
           dangerouslySetInnerHTML={{
             __html: `
               (function() {
@@ -126,11 +129,12 @@ export default function RootLayout({
         <div id="google_translate_element" style={{ display: 'none' }} />
         
         {/* Google Translate Init Script */}
-        <script
-          type="text/javascript"
+        <Script
+          id="google-translate-init"
+          strategy="afterInteractive"
           dangerouslySetInnerHTML={{
             __html: `
-              function googleTranslateElementInit() {
+              window.googleTranslateElementInit = function() {
                 new google.translate.TranslateElement({
                   pageLanguage: 'fr',
                   includedLanguages: 'fr,ar',
@@ -141,9 +145,9 @@ export default function RootLayout({
             `
           }}
         />
-        <script
-          type="text/javascript"
-          src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"
+        <Script
+          src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"
+          strategy="afterInteractive"
         />
       </body>
     </html>
