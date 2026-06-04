@@ -42,7 +42,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="fr" className="scroll-smooth">
+    <html lang="fr" className="scroll-smooth" dir="ltr" suppressHydrationWarning>
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
@@ -55,6 +55,27 @@ export default function RootLayout({
           rel="stylesheet"
         />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        
+        {/* Synchronous script to set LTR/RTL direction before paint to prevent layout flashes */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                var match = document.cookie.match(new RegExp('(^| )googtrans=([^;]+)'));
+                if (match) {
+                  var val = decodeURIComponent(match[2]);
+                  if (val.endsWith('/ar') || val.indexOf('/ar') !== -1) {
+                    document.documentElement.setAttribute('dir', 'rtl');
+                    document.documentElement.setAttribute('lang', 'ar');
+                    return;
+                  }
+                }
+                document.documentElement.setAttribute('dir', 'ltr');
+                document.documentElement.setAttribute('lang', 'fr');
+              })();
+            `
+          }}
+        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
