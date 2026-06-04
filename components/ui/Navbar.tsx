@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
@@ -10,6 +10,59 @@ const navLinks = [
   { label: "Products", href: "/#products" },
   { label: "Contact", href: "/#order-form" },
 ];
+
+function LanguageSwitcher() {
+  const [currentLang, setCurrentLang] = useState("fr");
+
+  useEffect(() => {
+    // Read cookie on mount
+    const match = document.cookie.match(new RegExp('(^| )googtrans=([^;]+)'));
+    if (match) {
+      const val = match[2];
+      if (val.endsWith("ar")) {
+        setCurrentLang("ar");
+      } else {
+        setCurrentLang("fr");
+      }
+    }
+  }, []);
+
+  const changeLanguage = (lang: string) => {
+    const date = new Date();
+    date.setTime(date.getTime() + (365*24*60*60*1000)); // 1 year expiry
+    const expires = "; expires=" + date.toUTCString();
+
+    document.cookie = "googtrans=/fr/" + lang + "; path=/" + expires;
+    document.cookie = "googtrans=/fr/" + lang + "; path=/; domain=" + window.location.hostname + expires;
+
+    window.location.reload();
+  };
+
+  return (
+    <div className="flex items-center gap-0.5 bg-slate-100/90 p-0.5 rounded-lg border border-slate-200/60 shadow-sm relative z-50">
+      <button
+        onClick={() => changeLanguage("fr")}
+        className={`px-2 py-0.5 text-[9px] font-bold rounded transition-all cursor-pointer ${
+          currentLang === "fr"
+            ? "bg-white text-slate-900 shadow-xs"
+            : "text-slate-500 hover:text-slate-900"
+        }`}
+      >
+        FR
+      </button>
+      <button
+        onClick={() => changeLanguage("ar")}
+        className={`px-2 py-0.5 text-[9px] font-bold rounded transition-all cursor-pointer ${
+          currentLang === "ar"
+            ? "bg-white text-slate-900 shadow-xs"
+            : "text-slate-500 hover:text-slate-900"
+        }`}
+      >
+        AR
+      </button>
+    </div>
+  );
+}
 
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -42,14 +95,14 @@ export default function Navbar() {
                   <circle cx="12" cy="16" r="1.5" className="fill-current" />
                 </svg>
               </div>
-              <span className="hidden md:inline text-xl font-extrabold tracking-tight text-slate-900">
+              <span className="hidden md:inline text-xl font-extrabold tracking-tight text-slate-900 notranslate" translate="no">
                 Dar<span className="text-blue-600">Lock</span>
               </span>
             </Link>
 
             {/* Mobile Store Name (Centered in the middle, between Logo and Hamburger toggle) */}
             <div className="flex md:hidden flex-1 justify-center px-2">
-              <span className="text-base font-extrabold tracking-tight text-slate-900">
+              <span className="text-base font-extrabold tracking-tight text-slate-900 notranslate" translate="no">
                 Dar<span className="text-blue-600">Lock</span>
               </span>
             </div>
@@ -67,8 +120,10 @@ export default function Navbar() {
               ))}
             </nav>
 
-            {/* CTA + Mobile toggle */}
-            <div className="flex items-center gap-4">
+            {/* CTA + Language Selector + Mobile toggle */}
+            <div className="flex items-center gap-3.5">
+              <LanguageSwitcher />
+
               <a href="#order-form" className="hidden md:block">
                 <motion.button
                   whileHover={{ scale: 1.05 }}

@@ -46,7 +46,7 @@ export default function Footer() {
                   <circle cx="12" cy="16" r="1.5" className="fill-current" />
                 </svg>
               </div>
-              <span className="text-lg font-extrabold tracking-tight text-slate-900">
+              <span className="text-lg font-extrabold tracking-tight text-slate-900 notranslate" translate="no">
                 Dar<span className="text-blue-600">Lock</span>
               </span>
             </Link>
@@ -136,7 +136,7 @@ export default function Footer() {
 
         {/* Bottom row */}
         <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-center md:text-left">
-          <p className="text-sm" style={{ color: "var(--text-muted)" }}>
+          <p className="text-sm notranslate" translate="no" style={{ color: "var(--text-muted)" }}>
             © {new Date().getFullYear()} DarLock. All rights reserved.
           </p>
           <div className="flex items-center justify-center md:justify-start gap-2 text-xs" style={{ color: "var(--text-muted)" }}>
