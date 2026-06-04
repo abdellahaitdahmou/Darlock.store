@@ -346,7 +346,7 @@ export default function OrderForm({
                 <h3 className="text-xs font-black text-slate-500 uppercase tracking-widest mb-4">
                   Choose Your Products
                 </h3>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div className="grid grid-cols-2 gap-3">
                   {CATALOG.map((product) => {
                     const qty = getQty(product.id);
                     const inCart = qty > 0;
