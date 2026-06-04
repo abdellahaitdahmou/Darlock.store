@@ -19,14 +19,14 @@ export default function HeroSection() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
           
           {/* LEFT SIDE: Brand Copy, Trust Indicators & CTAs */}
-          <div className="lg:col-span-7 flex flex-col text-left space-y-6">
+          <div className="lg:col-span-7 flex flex-col items-center text-center lg:items-start lg:text-left space-y-6 order-last lg:order-first">
             
             {/* Small Badge */}
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
-              className="w-fit"
+              className="w-fit mx-auto lg:mx-0"
             >
               <span className="px-3 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-wider text-blue-600 border border-blue-500/20 bg-blue-50">
                 Smart Security for Modern Homes
@@ -49,7 +49,7 @@ export default function HeroSection() {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="text-sm md:text-base leading-relaxed text-slate-600 max-w-xl font-medium"
+              className="text-sm md:text-base leading-relaxed text-slate-600 max-w-xl font-medium mx-auto lg:mx-0"
             >
               Unlock with fingerprint, mobile app, passcode, or remote access. Designed for homeowners, Airbnb hosts, and modern properties.
             </motion.p>
@@ -67,7 +67,7 @@ export default function HeroSection() {
                 { icon: CreditCard, label: "Cash on Delivery", text: "Zero upfront risk" },
                 { icon: ShieldCheck, label: "2-Year Warranty", text: "Full lock protection" },
               ].map((item, i) => (
-                <div key={i} className="flex flex-col space-y-1">
+                <div key={i} className="flex flex-col space-y-1 items-center lg:items-start">
                   <div className="flex items-center gap-1.5 text-xs font-black text-slate-900">
                     <item.icon className="w-4 h-4 text-blue-600" />
                     <span>{item.label}</span>
@@ -82,7 +82,7 @@ export default function HeroSection() {
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.4 }}
-              className="flex flex-col sm:flex-row gap-4 pt-4"
+              className="flex flex-col sm:flex-row gap-4 pt-4 w-full lg:w-auto"
             >
               <Link href="#order-form" className="block w-full sm:w-auto">
                 <button
@@ -110,7 +110,7 @@ export default function HeroSection() {
           </div>
 
           {/* RIGHT SIDE: Large product image & Floating Highlights */}
-          <div className="lg:col-span-5 flex justify-center relative pt-4 lg:pt-0">
+          <div className="lg:col-span-5 flex justify-center relative pt-4 lg:pt-0 order-first lg:order-last">
             <motion.div
               initial={{ opacity: 0, scale: 0.96 }}
               animate={{ opacity: 1, scale: 1 }}
