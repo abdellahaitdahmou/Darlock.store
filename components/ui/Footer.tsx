@@ -29,8 +29,8 @@ export default function Footer() {
         {/* Main footer grid */}
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-x-8 gap-y-12 mb-16">
           {/* Brand column */}
-          <div className="col-span-2 md:col-span-4 lg:col-span-2 lg:pr-8">
-            <Link href="/" className="flex items-center gap-2.5 mb-4">
+          <div className="col-span-2 md:col-span-4 lg:col-span-2 lg:pr-8 flex flex-col items-center md:items-start text-center md:text-left">
+            <Link href="/" className="flex items-center justify-center md:justify-start gap-2.5 mb-4">
               <div className="w-9 h-9 rounded-xl flex items-center justify-center bg-blue-600/10 text-blue-600 shadow-sm">
                 <svg
                   className="w-5.5 h-5.5"
@@ -50,16 +50,16 @@ export default function Footer() {
                 Dar<span className="text-blue-600">Lock</span>
               </span>
             </Link>
-            <p className="text-sm mb-6 leading-relaxed" style={{ color: "var(--text-secondary)" }}>
+            <p className="text-sm mb-6 leading-relaxed max-w-sm mx-auto md:mx-0" style={{ color: "var(--text-secondary)" }}>
               Next-generation smart security solutions. Trusted by thousands of
               homeowners across Morocco.
             </p>
-            <div className="space-y-2">
+            <div className="space-y-2 flex flex-col items-center md:items-start w-full">
               {[
                 { icon: Phone, text: "+212 682 19 26 41" },
                 { icon: MapPin, text: "Agadir, Morocco" },
               ].map(({ icon: Icon, text }, i) => (
-                <div key={i} className="flex items-center gap-2 text-sm" style={{ color: "var(--text-muted)" }}>
+                <div key={i} className="flex items-center gap-2 text-sm justify-center md:justify-start" style={{ color: "var(--text-muted)" }}>
                   <Icon className="w-3.5 h-3.5" style={{ color: "var(--accent-light)" }} />
                   {text}
                 </div>
@@ -79,16 +79,16 @@ export default function Footer() {
             };
 
             return (
-              <div key={category}>
-                <h4 className="text-sm font-bold mb-4" style={{ color: "var(--text-primary)" }}>
+              <div key={category} className="text-center md:text-left flex flex-col items-center md:items-start">
+                <h4 className="text-sm font-bold mb-4 w-full" style={{ color: "var(--text-primary)" }}>
                   {category}
                 </h4>
-                <ul className="space-y-2">
+                <ul className="space-y-2 flex flex-col items-center md:items-start w-full">
                   {links.map((link) => (
                     <li key={link}>
                       <Link
                         href={getLinkPath(category, link)}
-                        className="text-sm transition-colors block"
+                        className="text-sm transition-colors block text-center md:text-left"
                         style={{ color: "var(--text-muted)" }}
                         onMouseEnter={(e) =>
                           (e.currentTarget.style.color = "var(--accent-light)")
@@ -109,7 +109,7 @@ export default function Footer() {
 
         {/* Trust badges row */}
         <div
-          className="flex flex-wrap gap-4 mb-8 pb-8"
+          className="flex justify-center md:justify-start flex-wrap gap-4 mb-8 pb-8"
           style={{ borderBottom: "1px solid var(--border)" }}
         >
           {[
@@ -135,12 +135,12 @@ export default function Footer() {
         </div>
 
         {/* Bottom row */}
-        <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-center md:text-left">
           <p className="text-sm" style={{ color: "var(--text-muted)" }}>
             © {new Date().getFullYear()} DarLock. All rights reserved.
           </p>
-          <div className="flex items-center gap-2 text-xs" style={{ color: "var(--text-muted)" }}>
-            <Shield className="w-3.5 h-3.5" style={{ color: "var(--success)" }} />
+          <div className="flex items-center justify-center md:justify-start gap-2 text-xs" style={{ color: "var(--text-muted)" }}>
+            <Shield className="w-3.5 h-3.5 animate-pulse" style={{ color: "var(--success)" }} />
             All transactions secured with 256-bit SSL encryption
           </div>
         </div>
