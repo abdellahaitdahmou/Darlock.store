@@ -38,7 +38,7 @@ export default function HeroSection() {
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1 }}
-              className="text-4xl sm:text-5xl md:text-6xl font-black leading-[1.08] tracking-tight text-slate-900"
+              className="text-[32px] sm:text-5xl md:text-6xl font-black leading-[1.08] tracking-tight text-slate-900"
             >
               Control Your Home<br />
               <span className="gradient-text">From Anywhere</span>
