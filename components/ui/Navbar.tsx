@@ -3,7 +3,8 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
-import { Lock, Menu, X, Shield } from "lucide-react";
+import Image from "next/image";
+import { Menu, X } from "lucide-react";
 
 const navLinks = [
   { label: "Home", href: "/" },
@@ -25,15 +26,15 @@ export default function Navbar() {
         <div className="w-full max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16 bg-white/80 border border-slate-200/60 rounded-2xl px-6 backdrop-blur-md shadow-sm">
             {/* Logo */}
-            <Link href="/" className="flex items-center gap-2.5" id="navbar-logo">
-              <div
-                className="w-10 h-10 rounded-xl flex items-center justify-center border border-blue-500/20 bg-blue-50"
-                style={{
-                  boxShadow: "0 0 15px rgba(59, 130, 246, 0.15)",
-                }}
-              >
-                <Lock className="w-5 h-5 text-blue-600" />
-              </div>
+            <Link href="/" className="flex items-center" id="navbar-logo">
+              <Image
+                src="/logo.png"
+                alt="DarLock"
+                width={120}
+                height={40}
+                className="h-9 w-auto object-contain"
+                priority
+              />
             </Link>
 
             {/* Desktop Nav Links */}
