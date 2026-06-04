@@ -71,7 +71,7 @@ export default function Navbar() {
           </a>
         </div>
 
-        {/* Mobile Header (Replaces navbar/menu toggle completely on mobile) */}
+        {/* Mobile Header (Replaces navbar/menu toggle completely on mobile - as shown in user screenshot) */}
         <div className="flex md:hidden items-center justify-center w-full h-14 bg-slate-950/85 border border-white/10 rounded-2xl px-6 backdrop-blur-md shadow-lg shadow-blue-500/5">
           <Link href="/" className="flex items-center gap-2 select-none" id="navbar-logo-mobile">
             <div className="w-6.5 h-6.5 rounded-lg bg-blue-500/20 flex items-center justify-center text-blue-400">
