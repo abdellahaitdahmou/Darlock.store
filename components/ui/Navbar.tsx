@@ -71,12 +71,12 @@ export default function Navbar() {
           </a>
         </div>
 
-        {/* Mobile Header (Replaces navbar/menu toggle completely on mobile - as shown in user screenshot) */}
-        <div className="flex md:hidden items-center justify-center w-full h-14 bg-slate-950/85 border border-white/10 rounded-2xl px-6 backdrop-blur-md shadow-lg shadow-blue-500/5">
+        {/* Mobile Header (Light theme) */}
+        <div className="flex md:hidden items-center justify-center w-full h-14 bg-white/80 border border-slate-200/60 rounded-2xl px-6 backdrop-blur-md shadow-sm">
           <Link href="/" className="flex items-center gap-2 select-none" id="navbar-logo-mobile">
-            <div className="w-6.5 h-6.5 rounded-lg bg-blue-500/20 flex items-center justify-center text-blue-400">
+            <div className="w-8 h-8 rounded-lg bg-blue-600/10 flex items-center justify-center text-blue-600 shadow-sm">
               <svg
-                className="w-4 h-4"
+                className="w-4.5 h-4.5"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
@@ -89,8 +89,8 @@ export default function Navbar() {
                 <circle cx="12" cy="16" r="1.5" className="fill-current" />
               </svg>
             </div>
-            <span className="text-lg font-black tracking-wider text-white drop-shadow-[0_0_12px_rgba(59,130,246,0.4)]">
-              Dar<span className="text-blue-500">Lock</span>
+            <span className="text-lg font-extrabold tracking-tight text-slate-900">
+              Dar<span className="text-blue-600">Lock</span>
             </span>
           </Link>
         </div>
