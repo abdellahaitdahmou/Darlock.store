@@ -6,6 +6,8 @@ import Navbar from "@/components/ui/Navbar";
 import Footer from "@/components/ui/Footer";
 import OrderForm from "@/components/home/OrderForm";
 import ProductGallery from "@/components/product/ProductGallery";
+import ProductCartPreview from "@/components/product/ProductCartPreview";
+import StickyCheckoutBar from "@/components/product/StickyCheckoutBar";
 import { CheckCircle2, ShieldCheck, BatteryCharging, Wrench, Smartphone } from "lucide-react";
 
 interface ProductPageProps {
@@ -37,7 +39,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
     <div className="min-h-screen bg-slate-50 text-slate-900 selection:bg-blue-500/20 selection:text-slate-900 font-sans antialiased overflow-x-hidden flex flex-col">
       <Navbar />
       
-      <main className="flex-grow flex flex-col w-full pt-20">
+      <main className="flex-grow flex flex-col w-full pt-2 md:pt-4">
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -65,10 +67,10 @@ export default async function ProductPage({ params }: ProductPageProps) {
             })
           }}
         />
-        <div className="w-full max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="w-full max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 pt-4 pb-12 md:pt-8 md:pb-16">
           
           {/* Breadcrumb */}
-          <div className="text-xs font-bold text-slate-500 mb-8 uppercase tracking-widest flex items-center gap-2">
+          <div className="text-xs font-bold text-slate-500 mb-4 md:mb-8 uppercase tracking-widest flex items-center gap-2">
             <Link href="/" className="hover:text-blue-600 transition-colors">Home</Link>
             <span>/</span>
             <span>{product.category}</span>
@@ -111,6 +113,9 @@ export default async function ProductPage({ params }: ProductPageProps) {
                 {product.description}
               </p>
 
+              {/* Dynamic Cart Preview & Quantity Selector next to Gallery */}
+              <ProductCartPreview product={product} />
+
               <div className="space-y-4">
                 <h3 className="text-sm font-extrabold text-slate-900 uppercase tracking-wider">
                   Key Features
@@ -145,17 +150,21 @@ export default async function ProductPage({ params }: ProductPageProps) {
           </div>
         </div>
 
-        {/* The Checkout Section with specific product mapped to OrderForm */}
+
+
+        {/* The Checkout Section (Formuler) as the very last section */}
         <div className="bg-slate-50 border-t border-slate-200">
           <OrderForm 
             productName={product.name} 
             productImage={product.imageUrl} 
             price={product.discountedPrice} 
+            hideSidebar={true}
           />
         </div>
 
       </main>
       
+      <StickyCheckoutBar product={product} />
       <Footer />
     </div>
   );

@@ -28,43 +28,45 @@ function LanguageSwitcher() {
   }, []);
 
   const changeLanguage = (lang: string) => {
-    if (lang === "fr") {
-      // Delete translate cookies completely to turn off translation and revert to native French
-      document.cookie = "googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-      document.cookie = "googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=" + window.location.hostname;
-    } else {
-      const date = new Date();
-      date.setTime(date.getTime() + (365*24*60*60*1000)); // 1 year expiry
-      const expires = "; expires=" + date.toUTCString();
+    const date = new Date();
+    date.setTime(date.getTime() + (365*24*60*60*1000)); // 1 year expiry
+    const expires = "; expires=" + date.toUTCString();
 
-      document.cookie = "googtrans=/fr/ar; path=/" + expires;
-      document.cookie = "googtrans=/fr/ar; path=/; domain=" + window.location.hostname + expires;
+    // Translate from English (source text lang) to the selected target
+    if (lang === "fr") {
+      document.cookie = "googtrans=/en/fr; path=/" + expires;
+      document.cookie = "googtrans=/en/fr; path=/; domain=" + window.location.hostname + expires;
+    } else {
+      document.cookie = "googtrans=/en/ar; path=/" + expires;
+      document.cookie = "googtrans=/en/ar; path=/; domain=" + window.location.hostname + expires;
     }
 
     window.location.reload();
   };
 
   return (
-    <div className="flex items-center gap-0.5 bg-slate-100/90 p-0.5 rounded-lg border border-slate-200/60 shadow-sm relative z-50">
+    <div className="flex items-center gap-0.5 bg-slate-100/90 p-0.5 rounded-lg border border-slate-200/60 shadow-sm relative z-50 notranslate" translate="no">
       <button
         onClick={() => changeLanguage("fr")}
-        className={`px-2 py-0.5 text-[9px] font-bold rounded transition-all cursor-pointer ${
+        className={`px-2 py-0.5 text-[9px] font-bold rounded transition-all cursor-pointer notranslate ${
           currentLang === "fr"
             ? "bg-white text-slate-900 shadow-xs"
             : "text-slate-500 hover:text-slate-900"
         }`}
+        translate="no"
       >
-        FR
+        {currentLang === "ar" ? "الفرنسية" : "Français"}
       </button>
       <button
         onClick={() => changeLanguage("ar")}
-        className={`px-2 py-0.5 text-[9px] font-bold rounded transition-all cursor-pointer ${
+        className={`px-2 py-0.5 text-[9px] font-bold rounded transition-all cursor-pointer notranslate ${
           currentLang === "ar"
             ? "bg-white text-slate-900 shadow-xs"
             : "text-slate-500 hover:text-slate-900"
         }`}
+        translate="no"
       >
-        AR
+        {currentLang === "ar" ? "العربية" : "Arabe"}
       </button>
     </div>
   );

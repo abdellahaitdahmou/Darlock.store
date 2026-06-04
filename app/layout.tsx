@@ -43,7 +43,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="fr" className="scroll-smooth" dir="ltr" suppressHydrationWarning>
+    <html lang="en" className="scroll-smooth" dir="ltr" suppressHydrationWarning>
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
@@ -65,16 +65,18 @@ export default function RootLayout({
             __html: `
               (function() {
                 var match = document.cookie.match(new RegExp('(^| )googtrans=([^;]+)'));
-                if (match) {
-                  var val = decodeURIComponent(match[2]);
-                  if (val.endsWith('/ar') || val.indexOf('/ar') !== -1) {
-                    document.documentElement.setAttribute('dir', 'rtl');
-                    document.documentElement.setAttribute('lang', 'ar');
-                    return;
-                  }
+                if (!match) {
+                  // Default to French translation on first load
+                  document.cookie = "googtrans=/en/fr; path=/";
+                  document.cookie = "googtrans=/en/fr; path=/; domain=" + window.location.hostname;
+                  match = ["", "", "/en/fr"];
                 }
-                document.documentElement.setAttribute('dir', 'ltr');
-                document.documentElement.setAttribute('lang', 'fr');
+                var val = decodeURIComponent(match[2]);
+                if (val.endsWith('/ar') || val.indexOf('/ar') !== -1) {
+                  document.documentElement.setAttribute('dir', 'rtl');
+                } else {
+                  document.documentElement.setAttribute('dir', 'ltr');
+                }
               })();
             `
           }}
@@ -136,8 +138,8 @@ export default function RootLayout({
             __html: `
               window.googleTranslateElementInit = function() {
                 new google.translate.TranslateElement({
-                  pageLanguage: 'fr',
-                  includedLanguages: 'fr,ar',
+                  pageLanguage: 'en',
+                  includedLanguages: 'en,fr,ar',
                   layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
                   autoDisplay: false
                 }, 'google_translate_element');

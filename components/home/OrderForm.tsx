@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { motion, AnimatePresence } from "framer-motion";
@@ -121,10 +121,12 @@ function StepDot({ step, current }: { step: number; current: number }) {
 // ─── Main Component ───────────────────────────────────────────────────────────
 export default function OrderForm({
   productName = "WD03 Smart Lock",
+  hideSidebar = false,
 }: {
   productName?: string;
   productImage?: string;
   price?: number;
+  hideSidebar?: boolean;
 }) {
   // pre-select the product passed from parent (e.g. "Order Now" button on a product card)
   const preSelected = CATALOG.find((p) => p.name === productName) ?? CATALOG[0];
@@ -141,6 +143,24 @@ export default function OrderForm({
     items: CartItem[];
   } | null>(null);
   const [focusedField, setFocusedField] = useState<string | null>(null);
+
+  useEffect(() => {
+    const handleSetQty = (e: Event) => {
+      const customEvent = e as CustomEvent<{ name: string; qty: number }>;
+      const { name, qty } = customEvent.detail;
+      const product = CATALOG.find((p) => p.name.toLowerCase() === name.toLowerCase()) || 
+                      CATALOG.find((p) => name.toLowerCase().includes(p.name.toLowerCase())) ||
+                      CATALOG[0];
+      
+      if (product) {
+        setCart([{ product, quantity: qty }]);
+        setStep(2);
+      }
+    };
+
+    window.addEventListener("set-product-qty", handleSetQty);
+    return () => window.removeEventListener("set-product-qty", handleSetQty);
+  }, []);
 
   const { register, handleSubmit, formState: { errors } } = useForm<ContactValues>({
     resolver: zodResolver(contactSchema),
@@ -228,7 +248,8 @@ export default function OrderForm({
     }
   };
 
-  // ── Success screen ──────────────────────────────────────────────────────────
+  // ── Success screen setup ───────────────────────────────────────────────────
+  let waUrl = "";
   if (submitSuccess && orderResult) {
     const productSummary = orderResult.items
       .map((i) => `${i.quantity}x ${i.product.name}`)
@@ -244,62 +265,7 @@ export default function OrderForm({
       total_price: orderResult.total_price,
       notes: orderResult.notes,
     });
-    const waUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${waMsg}`;
-
-    return (
-      <section id="order-form" className="relative w-full py-8">
-        <div className="w-full max-w-xl mx-auto px-4">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            className="text-center p-8 rounded-3xl border border-emerald-200 bg-white shadow-xl"
-          >
-            <div className="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-6 bg-emerald-50 border border-emerald-100">
-              <PackageCheck className="w-8 h-8 text-emerald-500" />
-            </div>
-            <h3 className="text-2xl font-black mb-2 text-slate-900 tracking-tight">
-              Order Placed! 🎉
-            </h3>
-            <p className="text-sm mb-4 text-slate-600">
-              Thank you, <strong className="text-slate-900">{orderResult.customer_name}</strong>!
-              We'll call <strong className="text-blue-600">{orderResult.phone}</strong> to confirm.
-            </p>
-
-            {/* Order summary */}
-            <div className="text-left rounded-2xl bg-slate-50 border border-slate-200 p-4 mb-6 space-y-2">
-              {orderResult.items.map((item) => (
-                <div key={item.product.id} className="flex justify-between text-xs font-semibold text-slate-700">
-                  <span>{item.quantity}× {item.product.name}</span>
-                  <span>{(item.product.price * item.quantity).toFixed(2)} MAD</span>
-                </div>
-              ))}
-              <div className="border-t border-slate-200 pt-2 flex justify-between text-sm font-black text-slate-900">
-                <span>Total</span>
-                <span className="text-blue-600">{orderResult.total_price.toFixed(2)} MAD</span>
-              </div>
-            </div>
-
-            <div className="flex flex-col sm:flex-row gap-3">
-              <a href={waUrl} target="_blank" rel="noopener noreferrer" className="flex-1">
-                <button className="w-full py-3.5 rounded-xl font-bold text-xs uppercase tracking-wider text-white bg-[#25D366] hover:bg-[#22bf5b] transition-colors">
-                  Track on WhatsApp
-                </button>
-              </a>
-              <button
-                onClick={() => {
-                  setSubmitSuccess(false);
-                  setCart([{ product: CATALOG[0], quantity: 1 }]);
-                  setStep(1);
-                }}
-                className="flex-1 py-3.5 rounded-xl font-bold text-xs uppercase tracking-wider text-slate-600 border border-slate-200 bg-slate-50 hover:bg-slate-100 transition-colors"
-              >
-                New Order
-              </button>
-            </div>
-          </motion.div>
-        </div>
-      </section>
-    );
+    waUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${waMsg}`;
   }
 
   // ── Main form ───────────────────────────────────────────────────────────────
@@ -307,42 +273,90 @@ export default function OrderForm({
     <section id="order-form" className="relative w-full py-8 md:py-20">
       <div className="w-full max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8">
 
-        {/* Header */}
-        <div className="mb-8">
-          <h2 className="text-2xl font-black tracking-tight text-slate-900">
-            Secure Checkout Terminal
-          </h2>
-          <p className="text-sm text-slate-500 mt-1">
-            Build your order — add as many products as you like, then confirm.
-          </p>
+        {/* ── SUCCESS SCREEN (CSS toggled to prevent React unmounting crashes) ── */}
+        <div className={submitSuccess && orderResult ? "block w-full max-w-xl mx-auto" : "hidden"}>
+          {submitSuccess && orderResult && (
+            <div className="text-center p-8 rounded-3xl border border-emerald-200 bg-white shadow-xl">
+              <div className="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-6 bg-emerald-50 border border-emerald-100">
+                <PackageCheck className="w-8 h-8 text-emerald-500" />
+              </div>
+              <h3 className="text-2xl font-black mb-2 text-slate-900 tracking-tight">
+                <span>Order Placed! 🎉</span>
+              </h3>
+              <p className="text-sm mb-4 text-slate-600">
+                <span>Thank you, </span>
+                <strong className="text-slate-900">{orderResult.customer_name}</strong>
+                <span>! We'll call </span>
+                <strong className="text-blue-600">{orderResult.phone}</strong>
+                <span> to confirm.</span>
+              </p>
+
+              {/* Order summary */}
+              <div className="text-left rounded-2xl bg-slate-50 border border-slate-200 p-4 mb-6 space-y-2">
+                {orderResult.items.map((item) => (
+                  <div key={item.product.id} className="flex justify-between text-xs font-semibold text-slate-700">
+                    <span><span>{item.quantity}</span><span>× </span><span>{item.product.name}</span></span>
+                    <span><span>{(item.product.price * item.quantity).toFixed(2)}</span><span> MAD</span></span>
+                  </div>
+                ))}
+                <div className="border-t border-slate-200 pt-2 flex justify-between text-sm font-black text-slate-900">
+                  <span>Total</span>
+                  <span className="text-blue-600"><span>{orderResult.total_price.toFixed(2)}</span><span> MAD</span></span>
+                </div>
+              </div>
+
+              <div className="flex flex-col sm:flex-row gap-3">
+                <a href={waUrl} target="_blank" rel="noopener noreferrer" className="flex-1">
+                  <button className="w-full py-3.5 rounded-xl font-bold text-xs uppercase tracking-wider text-white bg-[#25D366] hover:bg-[#22bf5b] transition-colors">
+                    Track on WhatsApp
+                  </button>
+                </a>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setSubmitSuccess(false);
+                    setCart([{ product: CATALOG[0], quantity: 1 }]);
+                    setStep(1);
+                  }}
+                  className="flex-1 py-3.5 rounded-xl font-bold text-xs uppercase tracking-wider text-slate-600 border border-slate-200 bg-slate-50 hover:bg-slate-100 transition-colors"
+                >
+                  New Order
+                </button>
+              </div>
+            </div>
+          )}
         </div>
 
-        {/* Step indicator */}
-        <div className="flex items-center gap-3 mb-6">
-          <StepDot step={1} current={step} />
-          <span className={`text-xs font-bold ${step === 1 ? "text-slate-900" : "text-slate-400"}`}>
-            Select Products
-          </span>
-          <div className="flex-1 h-px bg-slate-200 mx-1" />
-          <StepDot step={2} current={step} />
-          <span className={`text-xs font-bold ${step === 2 ? "text-slate-900" : "text-slate-400"}`}>
-            Contact & Delivery
-          </span>
-        </div>
+        {/* ── MAIN FORM TERMINAL (CSS toggled to prevent React unmounting crashes) ── */}
+        <div className={submitSuccess && orderResult ? "hidden" : "block"}>
+          {/* Header */}
+          <div className={`mb-8 ${step === 2 ? "hidden" : "block"}`}>
+            <h2 className="text-2xl font-black tracking-tight text-slate-900">
+              Secure Checkout Terminal
+            </h2>
+            <p className="text-sm text-slate-500 mt-1">
+              Build your order — add as many products as you like, then confirm.
+            </p>
+          </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-start">
+          {/* Step indicator */}
+          <div className={`flex items-center gap-3 mb-6 ${step === 2 ? "hidden" : "block"}`}>
+            <StepDot step={1} current={step} />
+            <span className={`text-xs font-bold ${step === 1 ? "text-slate-900" : "text-slate-400"}`}>
+              Select Products
+            </span>
+            <div className="flex-1 h-px bg-slate-200 mx-1" />
+            <StepDot step={2} current={step} />
+            <span className={`text-xs font-bold ${step === 2 ? "text-slate-900" : "text-slate-400"}`}>
+              Contact & Delivery
+            </span>
+          </div>
 
-          {/* ── STEP 1: Product picker ── */}
-          <AnimatePresence mode="wait">
-            {step === 1 && (
-              <motion.div
-                key="step1"
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -20 }}
-                transition={{ duration: 0.25 }}
-                className="md:col-span-7 rounded-3xl border border-slate-200 bg-white p-5 shadow-sm"
-              >
+          <div className={hideSidebar ? "max-w-2xl mx-auto w-full" : "grid grid-cols-1 md:grid-cols-12 gap-6 items-start"}>
+
+            {/* ── STEP 1: Product picker ── */}
+            <div className={step === 1 ? (hideSidebar ? "w-full block" : "md:col-span-7 block") : "hidden"}>
+              <div className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm">
                 <h3 className="text-xs font-black text-slate-500 uppercase tracking-widest mb-4">
                   Choose Your Products
                 </h3>
@@ -351,9 +365,8 @@ export default function OrderForm({
                     const qty = getQty(product.id);
                     const inCart = qty > 0;
                     return (
-                      <motion.div
+                      <div
                         key={product.id}
-                        whileHover={{ y: -2 }}
                         className={`relative rounded-2xl border p-3 flex gap-3 items-center cursor-pointer transition-all duration-200 ${
                           inCart
                             ? "border-blue-400 bg-blue-50 shadow-[0_0_12px_rgba(59,130,246,0.12)]"
@@ -378,12 +391,12 @@ export default function OrderForm({
 
                         {/* Info + controls */}
                         <div className="flex-1 min-w-0">
-                          <p className="text-[11px] font-black text-slate-800 leading-tight truncate">
+                          <p className="text-[11px] font-black text-slate-800 leading-tight truncate notranslate" translate="no">
                             {product.name}
                           </p>
-                          <div className="flex items-center gap-1.5 mt-0.5">
+                          <div className="flex items-center gap-1.5 mt-0.5 notranslate" translate="no">
                             <span className="text-xs font-black text-blue-600">
-                              {product.price} MAD
+                              <span>{product.price}</span><span> MAD</span>
                             </span>
                             <span className="text-[10px] text-slate-400 line-through">
                               {product.originalPrice}
@@ -391,7 +404,7 @@ export default function OrderForm({
                           </div>
 
                           {/* Quantity controls */}
-                          <div className="flex items-center gap-2 mt-2">
+                          <div className="flex items-center gap-2 mt-2 notranslate" translate="no">
                             {inCart ? (
                               <div className="flex items-center gap-1.5">
                                 <button
@@ -431,23 +444,16 @@ export default function OrderForm({
                             )}
                           </div>
                         </div>
-                      </motion.div>
+                      </div>
                     );
                   })}
                 </div>
-              </motion.div>
-            )}
+              </div>
+            </div>
 
             {/* ── STEP 2: Contact form ── */}
-            {step === 2 && (
-              <motion.div
-                key="step2"
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: 20 }}
-                transition={{ duration: 0.25 }}
-                className="md:col-span-7 rounded-3xl border border-slate-200 bg-white p-5 shadow-sm"
-              >
+            <div className={step === 2 ? (hideSidebar ? "w-full block" : "md:col-span-7 block") : "hidden"}>
+              <div className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm">
                 <h3 className="text-xs font-black text-slate-500 uppercase tracking-widest mb-4">
                   Delivery Information
                 </h3>
@@ -536,18 +542,11 @@ export default function OrderForm({
                   </div>
 
                   {/* Error */}
-                  <AnimatePresence>
-                    {submitError && (
-                      <motion.div
-                        initial={{ opacity: 0, y: -4 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0 }}
-                        className="p-3 rounded-lg text-[10px] font-bold bg-red-50 border border-red-200 text-red-600"
-                      >
-                        ⚠ {submitError}
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
+                  {submitError && (
+                    <div className="p-3 rounded-lg text-[10px] font-bold bg-red-50 border border-red-200 text-red-600">
+                      ⚠ {submitError}
+                    </div>
+                  )}
 
                   {/* Submit */}
                   <button
@@ -569,46 +568,36 @@ export default function OrderForm({
                     )}
                   </button>
                 </form>
-              </motion.div>
-            )}
-          </AnimatePresence>
-
-          {/* ── RIGHT PANEL: Cart summary (always visible) ── */}
-          <div className="md:col-span-5 rounded-3xl border border-slate-200 bg-white p-4 sm:p-5 flex flex-col space-y-4 shadow-sm sticky top-6">
-            {/* Cart header */}
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <ShoppingCart className="w-4 h-4 text-blue-600" />
-                <span className="text-sm font-extrabold text-slate-900">Your Cart</span>
               </div>
-              {cartCount > 0 && (
-                <span className="text-xs font-black bg-blue-100 text-blue-700 rounded-full px-2.5 py-0.5">
-                  {cartCount} item{cartCount > 1 ? "s" : ""}
-                </span>
-              )}
             </div>
 
-            {/* Cart items */}
-            <div className="space-y-2 min-h-[80px]">
-              <AnimatePresence>
+            {/* ── RIGHT PANEL: Cart summary (always visible) ── */}
+            <div className={`md:col-span-5 rounded-3xl border border-slate-200 bg-white p-4 sm:p-5 flex-col space-y-4 shadow-sm sticky top-6 ${hideSidebar ? "hidden" : "flex"}`}>
+              {/* Cart header */}
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <ShoppingCart className="w-4 h-4 text-blue-600" />
+                  <span className="text-sm font-extrabold text-slate-900">Your Cart</span>
+                </div>
+                {cartCount > 0 && (
+                  <span className="text-xs font-black bg-blue-100 text-blue-700 rounded-full px-2.5 py-0.5 notranslate" translate="no">
+                    <span>{cartCount}</span> <span>item{cartCount > 1 ? "s" : ""}</span>
+                  </span>
+                )}
+              </div>
+
+              {/* Cart items */}
+              <div className="space-y-2 min-h-[80px] notranslate" translate="no">
                 {cart.length === 0 ? (
-                  <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    className="flex flex-col items-center justify-center py-6 text-center"
-                  >
+                  <div className="flex flex-col items-center justify-center py-6 text-center">
                     <ShoppingCart className="w-8 h-8 text-slate-200 mb-2" />
                     <p className="text-xs text-slate-400 font-semibold">Your cart is empty</p>
                     <p className="text-[10px] text-slate-300">Add a product from the left</p>
-                  </motion.div>
+                  </div>
                 ) : (
                   cart.map((item) => (
-                    <motion.div
+                    <div
                       key={item.product.id}
-                      initial={{ opacity: 0, height: 0 }}
-                      animate={{ opacity: 1, height: "auto" }}
-                      exit={{ opacity: 0, height: 0 }}
-                      transition={{ duration: 0.2 }}
                       className="flex items-center gap-3 p-2.5 rounded-xl bg-slate-50 border border-slate-100"
                     >
                       <div className="w-10 h-10 rounded-lg bg-white border border-slate-200 flex-shrink-0 overflow-hidden">
@@ -623,7 +612,7 @@ export default function OrderForm({
                           {item.product.name}
                         </p>
                         <p className="text-[10px] text-slate-500">
-                          {item.quantity} × {item.product.price} MAD
+                          <span>{item.quantity}</span><span> × </span><span>{item.product.price}</span><span> MAD</span>
                         </p>
                       </div>
                       <div className="flex items-center gap-1.5 flex-shrink-0">
@@ -650,68 +639,67 @@ export default function OrderForm({
                           <Trash2 className="w-2.5 h-2.5" />
                         </button>
                       </div>
-                    </motion.div>
+                    </div>
                   ))
                 )}
-              </AnimatePresence>
-            </div>
-
-            {/* Divider + Total */}
-            {cart.length > 0 && (
-              <div className="border-t border-slate-100 pt-3 space-y-2">
-                <div className="flex justify-between text-xs text-slate-500">
-                  <span>Subtotal</span>
-                  <span className="font-bold">{cartTotal.toFixed(2)} MAD</span>
-                </div>
-                <div className="flex justify-between text-xs text-emerald-600 font-semibold">
-                  <span>Shipping</span>
-                  <span>FREE</span>
-                </div>
-                <div className="flex justify-between text-sm font-black text-slate-900 border-t border-slate-100 pt-2">
-                  <span>Total</span>
-                  <span className="text-blue-600">{cartTotal.toFixed(2)} MAD</span>
-                </div>
               </div>
-            )}
 
-            {/* Trust badges */}
-            <div className="flex justify-between pt-1">
-              {["Free Shipping", "Cash on Delivery", "2-Year Warranty"].map((label, i) => (
-                <div key={i} className="flex items-center gap-1 text-[9px] font-bold text-emerald-600">
-                  <CheckCircle2 className="w-3 h-3 flex-shrink-0" />
-                  <span>{label}</span>
+              {/* Divider + Total */}
+              {cart.length > 0 && (
+                <div className="border-t border-slate-100 pt-3 space-y-2">
+                  <div className="flex justify-between text-xs text-slate-500">
+                    <span>Subtotal</span>
+                    <span className="font-bold"><span>{cartTotal.toFixed(2)}</span><span> MAD</span></span>
+                  </div>
+                  <div className="flex justify-between text-xs text-emerald-600 font-semibold">
+                    <span>Shipping</span>
+                    <span>FREE</span>
+                  </div>
+                  <div className="flex justify-between text-sm font-black text-slate-900 border-t border-slate-100 pt-2">
+                    <span>Total</span>
+                    <span className="text-blue-600"><span>{cartTotal.toFixed(2)}</span><span> MAD</span></span>
+                  </div>
                 </div>
-              ))}
-            </div>
+              )}
 
-            {/* Delivery badge */}
-            <div className="rounded-xl bg-emerald-50 border border-emerald-100 py-2.5 text-center">
-              <span className="text-[10px] font-black text-emerald-600 uppercase tracking-widest animate-pulse">
-                Delivery in 24-48 hours
-              </span>
-            </div>
+              {/* Trust badges */}
+              <div className="flex justify-between pt-1">
+                {["Free Shipping", "Cash on Delivery", "2-Year Warranty"].map((label, i) => (
+                  <div key={i} className="flex items-center gap-1 text-[9px] font-bold text-emerald-600">
+                    <CheckCircle2 className="w-3 h-3 flex-shrink-0" />
+                    <span>{label}</span>
+                  </div>
+                ))}
+              </div>
 
-            {/* Step navigation buttons */}
-            {step === 1 ? (
-              <button
-                type="button"
-                disabled={cart.length === 0}
-                onClick={() => setStep(2)}
-                className="w-full py-3 rounded-xl font-extrabold text-xs uppercase tracking-wider text-white bg-blue-600 hover:bg-blue-700 shadow-md flex items-center justify-center gap-2 transition-all disabled:bg-slate-200 disabled:text-slate-400 disabled:cursor-not-allowed"
-              >
-                Continue to Checkout
-                <ChevronRight className="w-4 h-4" />
-              </button>
-            ) : (
-              <button
-                type="button"
-                onClick={() => setStep(1)}
-                className="w-full py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider text-slate-600 border border-slate-200 bg-slate-50 hover:bg-slate-100 flex items-center justify-center gap-1.5 transition-all"
-              >
-                <ChevronLeft className="w-3.5 h-3.5" />
-                Edit Products
-              </button>
-            )}
+              {/* Delivery badge */}
+              <div className="rounded-xl bg-emerald-50 border border-emerald-100 py-2.5 text-center">
+                <span className="text-[10px] font-black text-emerald-600 uppercase tracking-widest animate-pulse">
+                  Delivery in 24-48 hours
+                </span>
+              </div>
+
+              {/* Step navigation buttons */}
+              <div className="w-full">
+                <button
+                  type="button"
+                  disabled={cart.length === 0}
+                  onClick={() => setStep(2)}
+                  className={`w-full py-3 rounded-xl font-extrabold text-xs uppercase tracking-wider text-white bg-blue-600 hover:bg-blue-700 shadow-md items-center justify-center gap-2 transition-all disabled:bg-slate-200 disabled:text-slate-400 disabled:cursor-not-allowed ${step === 1 ? "flex" : "hidden"}`}
+                >
+                  <span>Continue to Checkout</span>
+                  <ChevronRight className="w-4 h-4" />
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setStep(1)}
+                  className={`w-full py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider text-slate-600 border border-slate-200 bg-slate-50 hover:bg-slate-100 items-center justify-center gap-1.5 transition-all ${step === 2 ? "flex" : "hidden"}`}
+                >
+                  <ChevronLeft className="w-3.5 h-3.5" />
+                  <span>Edit Products</span>
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
