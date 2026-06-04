@@ -11,7 +11,7 @@ export const orderSchema = z.object({
     .min(8, "Phone number must be at least 8 digits")
     .max(20, "Phone number is too long")
     .regex(
-      /^[+\d\s\-()]{8,20}$/,
+      /^[+\d\s\-()٠-٩]{8,20}$/,
       "Please enter a valid phone number"
     ),
 
@@ -31,7 +31,10 @@ export const orderSchema = z.object({
     .number()
     .int("Quantity must be a whole number")
     .min(1, "Minimum quantity is 1")
-    .max(10, "Maximum quantity is 10"),
+    .max(100, "Maximum quantity is 100"),
+
+  // Optional: client-calculated total for multi-product carts
+  total_price: z.number().nonnegative().optional(),
 
   notes: z.string().max(500, "Notes are too long").optional(),
 });

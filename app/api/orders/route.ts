@@ -23,11 +23,15 @@ export async function POST(request: NextRequest) {
 
     const data = validation.data;
 
-    // Calculate total price
-    const products = await getProducts();
-    const product = products.find((p) => p.name === data.product_name);
-    const unitPrice = product?.discountedPrice ?? 0;
-    const total_price = unitPrice * data.quantity;
+    // For multi-product carts the client sends total_price directly.
+    // For single-product orders we calculate it from the catalogue.
+    let total_price = data.total_price ?? 0;
+    if (!data.total_price) {
+      const products = await getProducts();
+      const product = products.find((p) => p.name === data.product_name);
+      const unitPrice = product?.discountedPrice ?? 0;
+      total_price = unitPrice * data.quantity;
+    }
 
     const orderPayload: Omit<Order, "id" | "created_at"> = {
       customer_name: data.customer_name,

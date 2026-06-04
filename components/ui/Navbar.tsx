@@ -7,7 +7,6 @@ import { Lock, Menu, X, Shield } from "lucide-react";
 
 const navLinks = [
   { label: "Home", href: "/" },
-  { label: "Pricing", href: "/#order-form" },
   { label: "Products", href: "/#products" },
   { label: "Contact", href: "/#order-form" },
 ];
