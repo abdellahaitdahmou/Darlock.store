@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Lock, Shield, Phone, Mail, MapPin } from "lucide-react";
+import { Shield, Phone, Mail, MapPin } from "lucide-react";
 
 const footerLinks = {
   Products: [
@@ -31,16 +31,23 @@ export default function Footer() {
           {/* Brand column */}
           <div className="col-span-2 md:col-span-4 lg:col-span-2 lg:pr-8">
             <Link href="/" className="flex items-center gap-2.5 mb-4">
-              <div
-                className="w-9 h-9 rounded-xl flex items-center justify-center"
-                style={{
-                  background: "linear-gradient(135deg, #2f81f7, #1f6feb)",
-                }}
-              >
-                <Lock className="w-5 h-5 text-white" />
+              <div className="w-9 h-9 rounded-xl flex items-center justify-center bg-blue-600/10 text-blue-600 shadow-sm">
+                <svg
+                  className="w-5.5 h-5.5"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <rect x="5" y="11" width="14" height="11" rx="2.5" ry="2.5" />
+                  <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                  <circle cx="12" cy="16" r="1.5" className="fill-current" />
+                </svg>
               </div>
-              <span className="text-lg font-black">
-                Smart<span style={{ color: "var(--accent-light)" }}>Lock</span>
+              <span className="text-lg font-extrabold tracking-tight text-slate-900">
+                Dar<span className="text-blue-600">Lock</span>
               </span>
             </Link>
             <p className="text-sm mb-6 leading-relaxed" style={{ color: "var(--text-secondary)" }}>
@@ -130,7 +137,7 @@ export default function Footer() {
         {/* Bottom row */}
         <div className="flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-sm" style={{ color: "var(--text-muted)" }}>
-            © {new Date().getFullYear()} SmartLock. All rights reserved.
+            © {new Date().getFullYear()} DarLock. All rights reserved.
           </p>
           <div className="flex items-center gap-2 text-xs" style={{ color: "var(--text-muted)" }}>
             <Shield className="w-3.5 h-3.5" style={{ color: "var(--success)" }} />
